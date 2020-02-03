@@ -7,7 +7,7 @@ import Tourist from './pages/Tourist';
 export default () => (
   <Router>
       <Switch>
-          <Route exact path="/" render={() => <Redirect to="/app/dashboard/index" push />} />
+          <Route exact path="/" render={() => <Redirect to="/tourist" push />} />
           <Route path="/user" component={User} />
           <Route path="/404" component={NotFound} />
           <Route path="/tourist" component={Tourist} />

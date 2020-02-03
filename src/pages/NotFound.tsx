@@ -2,7 +2,7 @@
  * Created by hao.cheng on 2017/5/7.
  */
 import React from 'react';
-import img from '../../style/imgs/404.png';
+import img404 from '../asserts/imges/404.png';
 
 class NotFound extends React.Component {
     state = {
@@ -18,7 +18,7 @@ class NotFound extends React.Component {
                 style={{ height: '100%', background: '#ececec', overflow: 'hidden' }}
             >
                 <img
-                    src={img}
+                    src={img404}
                     alt="404"
                     className={`animated swing ${this.state.animated}`}
                     onMouseEnter={this.enter}
