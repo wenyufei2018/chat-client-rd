@@ -5,7 +5,7 @@ import {IUserInfo, AllUserNameGql} from '../../utils/data'
 import {RouteComponentProps} from 'react-router-dom';
 import {userInfoContext} from '../../App';
 
-const SignIn:React.FC<RouteComponentProps> = (props) => {
+const ShowFriend:React.FC<RouteComponentProps> = (props) => {
 
   const {data: userNamesData} = useQuery<{
     users: IUserInfo[]
@@ -42,4 +42,4 @@ const SignIn:React.FC<RouteComponentProps> = (props) => {
   )
 }
 
-export default SignIn;
+export default ShowFriend;

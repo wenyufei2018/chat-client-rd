@@ -1,14 +1,14 @@
 import React from 'react';
 import {Button, Input} from 'antd';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import {IUser, AddUserGql, AllUserNameGql} from '../../utils/data'
+import {IUserInfo, AddUserGql, AllUserNameGql} from '../../utils/data'
 
 
 const SignUp = () => {
 
   const [addUser] = useMutation(AddUserGql);
   const {data: userNamesData} = useQuery<{
-    users: IUser[]
+    users: IUserInfo[]
   }>(AllUserNameGql);
   let name: String;
 

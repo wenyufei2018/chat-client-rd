@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
-export interface IUser{
+export interface IUserInfo{
   name: string;
-  friend?: string[];
+  avater?: string;
+  friends?: string[];
 }
 
 export const AddUserGql = gql`
@@ -17,6 +18,29 @@ export const AllUserNameGql = gql`
   query {
     users{
       name
+    }
+  }
+`;
+
+export interface IAddFriendInput{
+  name: string;
+  friend: string;
+}
+
+export interface IAddFriendResult{
+  addFriend: {
+    name: string;
+    friend: string;
+    status: string;
+  }
+}
+
+export const addFriendGql = gql`
+  mutation AddFriend($name: String!, $friend: String!){
+    addFriend(input:{name:$name, friend:$friend}){
+      name
+      friend
+      status
     }
   }
 `;
