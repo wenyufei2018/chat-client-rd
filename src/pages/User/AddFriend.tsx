@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {Button, Input} from 'antd';
-import {addFriendGql, IAddFriendInput, IAddFriendResult} from '../../utils/data'
+import {addFriendGql, IAddFriendInput, IAddFriendResult, friendGql} from '../../utils/data'
 import {userInfoContext} from '../../App';
 
 const SignIn:React.FC = () => {
@@ -20,7 +20,8 @@ const SignIn:React.FC = () => {
         type = "primary"
         onClick = { () => {
           addFriend({
-            variables: {name, friend}
+            variables: {name, friend},
+            refetchQueries: friendGql,
           })
           .then((res) => {
             if(res.data?.addFriend.status){

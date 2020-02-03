@@ -1,45 +1,32 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import {Button, Input} from 'antd';
-import {IUserInfo, AllUserNameGql} from '../../utils/data'
-import {RouteComponentProps} from 'react-router-dom';
+import {friendGql, IFriendInput, IFriendResult} from '../../utils/data'
 import {userInfoContext} from '../../App';
 
-const ShowFriend:React.FC<RouteComponentProps> = (props) => {
-
-  const {data: userNamesData} = useQuery<{
-    users: IUserInfo[]
-  }>(AllUserNameGql);
-  let name: string;
-
-  const {setUserInfo} = useContext(userInfoContext);
-  return (
-    <div>
-      <Input
-        onChange = {(e) => {
-          name = e.target.value;
-        }}
-        placeholder = "输入用户名"
-      ></Input>
-      <Button 
-        type = "primary"
-        onClick = {() => {
-          if(!!userNamesData){
-            for(const item of userNamesData.users){
-              if(name === item.name){
-                props.history.push(`/user`);
-                setUserInfo({
-                  name
-                })
-                return;
-              }
-            }
-            alert('用户名不存在');
-          }
-        }} 
-      >登录</Button>
-    </div>
-  )
+const ShowFriend:React.FC = () => {
+  const {userInfo:{name}} = useContext(userInfoContext);
+  const {data, loading} = useQuery<IFriendResult, IFriendInput>(friendGql, {
+    variables:{name}
+  });
+  console.log(data);
+  if(!!loading) {
+    return <div></div>
+  }else{
+    console.log(data);
+    return (
+      <div>
+        <h3>{`用户${name}的朋友有：`}</h3>
+        {
+          data?.friends.friends?.map((item, index) => {
+          return <a
+              key = {index}
+            >{item + ' '}</a>
+          }) 
+        }
+      </div>
+    )
+  }
 }
 
 export default ShowFriend;

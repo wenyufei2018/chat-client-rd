@@ -44,3 +44,21 @@ export const addFriendGql = gql`
     }
   }
 `;
+
+export interface IFriendInput{
+  name: string;
+}
+
+export interface IFriendResult{
+  friends: {
+    friends?: string[]
+  }
+}
+
+export const friendGql = gql`
+  query friends($name: String!){
+    friends(input:{name:$name}){
+      friends
+    }
+  }
+`
