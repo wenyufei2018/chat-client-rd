@@ -4,7 +4,7 @@ import {Button, Input} from 'antd';
 import {addFriendGql, IAddFriendInput, IAddFriendResult, friendGql} from '../../utils/data'
 import {userInfoContext} from '../../App';
 
-const SignIn:React.FC = () => {
+const AddFriend:React.FC = () => {
   let friend: string;
   const [addFriend] = useMutation<IAddFriendResult, IAddFriendInput>(addFriendGql);
   const {userInfo: {name}} = useContext(userInfoContext);
@@ -21,7 +21,10 @@ const SignIn:React.FC = () => {
         onClick = { () => {
           addFriend({
             variables: {name, friend},
-            refetchQueries: friendGql,
+            refetchQueries: [{
+              query: friendGql,
+              variables: {name}
+            }],
           })
           .then((res) => {
             if(res.data?.addFriend.status){
@@ -40,9 +43,9 @@ const SignIn:React.FC = () => {
             alert('发生错误');
           });
         }} 
-      >登录</Button>
+      >添加</Button>
     </div>
   )
 }
 
-export default SignIn;
+export default AddFriend;

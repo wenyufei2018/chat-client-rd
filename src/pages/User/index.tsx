@@ -3,7 +3,7 @@ import {userInfoContext} from '../../App';
 import {Route, Switch, Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
 import ShowFriend from './ShowFriend';
-
+import Chat from './chat';
 
 const User: React.FC = () => {
   const {userInfo: {name}} = useContext(userInfoContext);
@@ -15,6 +15,7 @@ const User: React.FC = () => {
         <ShowFriend/>
         <Switch>
           <Route exact path="/user/addFriend" component={AddFriend} />
+          <Route exact path="/user/chat/:name" component={Chat} />
         </Switch>
         <Link to ="/user/addFriend" >添加朋友</Link>
       </div>

@@ -62,3 +62,54 @@ export const friendGql = gql`
     }
   }
 `
+
+export interface IChatMessagesResult{
+  chatMessages: {
+      type: string
+      content: String
+      created: Date
+      messageId: String
+  }[]
+}
+
+export interface IChatMessagesInput{
+  users: string[]
+}
+
+export const chatMessages = gql`
+  query chatMessages($users: [String]){
+    chatMessages(input:{users: $users}){
+      content
+      created
+      messageId
+      type
+    }
+  }
+`
+
+export interface IAddMessageResult{
+  addMessage: {
+    users: string[],
+    type: string,
+    status: string,
+  }[]
+}
+
+export interface IAddMessageInput{
+  users: string[],
+  content: string,
+}
+
+export const addMessageGql = gql`
+  mutation addMessage($content: String!, $users: [String]){
+    addMessage(input:{
+      content:$content,
+      type:text,
+      users: $users
+    }){
+      users
+      type
+      status
+    }
+  }
+`;
