@@ -1,65 +1,99 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
-import {Input, Button} from 'antd';
-import {chatMessages, IChatMessagesInput, IChatMessagesResult, addMessageGql, IAddMessageInput, IAddMessageResult} from '../../utils/data';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import {userInfoContext} from '../../App';
+import React from 'react';
+import {Input, Button, List } from 'antd';
+import { useMutation } from '@apollo/react-hooks';
+import {IChatInfo} from '.';
+import gql from 'graphql-tag';
+import {IMessage} from '../../utils/chat';
 
-interface IRouterProps {
-  name: string;
+interface IAddMessageResult{
+  addMessage: {
+    status: string;
+    message: IMessage;
+  }
 }
 
-const Chat: React.FC<RouteComponentProps<IRouterProps>> = (props) => {
-  const {name: friendName} = props.match.params;
-  const {userInfo:{name}} = useContext(userInfoContext);
+interface IAddMessageInput{
+  users: string[],
+  content: string,
+  userId: string,
+}
+
+export const addMessageGql = gql`
+  mutation addMessage($content: String!, $users: [String!]!, $userId: String!){
+    addMessage(
+      content:$content,
+      type:text,
+      users: $users,
+      userId: $userId,
+    ){
+      status
+      message{
+        users
+        type
+        userId
+        content
+        created
+        messageId
+      }
+    }
+  }
+`;
+
+interface IChatProps {
+  friendName: string;
+  userId: string;
+  chatInfo: IChatInfo;
+  setChatInfo: (chatInfo: IChatInfo) => void;
+};
+
+const Chat: React.FC<IChatProps> = (props) => {
+  const {friendName, chatInfo, setChatInfo, userId} = props;
+  const {messages, friendInfo} = chatInfo[friendName];
   const [addMessage] = useMutation<IAddMessageResult, IAddMessageInput>(addMessageGql);
 
-  const {data, loading} = useQuery<IChatMessagesResult, IChatMessagesInput>(chatMessages,{
-    variables:{
-      users: [friendName, name]
-    }
-  });
   let content: string;
+  let InputRef: Input | null;
 
   return (
     <div>
-      <h1>{`Chat with ${friendName}`}</h1>
-      {
-        !!loading ? <div></div> :
-        <div>
-        {
-          data?.chatMessages.map((item, index) => 
-            (<a
-                key = {index}
-            >{item.content + ' '}</a>))
-        }
-        </div>
-      }
+      <h1>{`Chat with ${friendName} avater ${friendInfo?.avatar}`}</h1>
+      <List
+        bordered
+        dataSource={messages}
+        renderItem={item => (
+          <List.Item>
+            {item.content}
+          </List.Item>
+        )}
+      />
       <Input
-        onChange = {(e) => {
-          content = e.target.value;
-        }}
+        ref = {(ref) => InputRef=ref}
         placeholder = "发送消息"
       ></Input>
       <Button 
         type = "primary"
         onClick = { () => {
+          if(!!InputRef) content = InputRef?.input.value;   
+          if(!content) return;   
           alert(content);
           addMessage({
             variables: {
               content,
-              users: [name, friendName]
+              users: [userId, friendName],
+              userId,
             },
-            refetchQueries: [{
-              query: chatMessages,
-              variables:{
-                users: [friendName, name]
-              }
-            }],
           })
           .then((res) => {
             console.log(res.data?.addMessage);
+            if(res.data?.addMessage){
+              const {status, message} = res.data?.addMessage;
+              if(status === "sucess"){
+                setChatInfo({...chatInfo, [friendName]:{
+                  messages: [...chatInfo[friendName].messages, message],
+                  friendInfo: chatInfo[friendName].friendInfo
+                }})
+              }
+            }
           })
           .catch((err) => {
             console.warn(err);

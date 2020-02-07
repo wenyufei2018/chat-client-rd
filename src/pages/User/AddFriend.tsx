@@ -1,38 +1,53 @@
-import React, { useContext } from 'react';
+import React,{useContext} from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {Button, Input} from 'antd';
-import {addFriendGql, IAddFriendInput, IAddFriendResult, friendGql} from '../../utils/data'
-import {userInfoContext} from '../../App';
+import gql from 'graphql-tag';
+import {userInfoContext} from '../../App'
+import {IUser} from '../../utils/chat';
 
-const AddFriend:React.FC = () => {
-  let friend: string;
-  const [addFriend] = useMutation<IAddFriendResult, IAddFriendInput>(addFriendGql);
-  const {userInfo: {name}} = useContext(userInfoContext);
+const addFriendGql = gql`
+  mutation AddFriend($userId: String!, $friend: String!){
+    addFriend(userId:$userId, friend:$friend){
+      status
+      friend{
+        userId
+        avatar
+      }
+    }
+  }
+`;
+
+const AddFriend:React.FC = (props) => {
+  const {userInfo, setUserInfo} = useContext(userInfoContext);
+  const {userId, friends} = userInfo;
+  const [addFriend] = useMutation<{addFriend:{status: string, friend: IUser}}, {userId: string;friend: string;}>(
+    addFriendGql);
+  let friendStr: string = '';
+  let InputRef: Input |null;
+
   return (
     <div>
       <Input
-        onChange = {(e) => {
-          friend = e.target.value;
-        }}
         placeholder = "输入朋友的用户名"
+        ref = {(ref) => { InputRef = ref}}
       ></Input>
       <Button 
         type = "primary"
         onClick = { () => {
+          if(!!InputRef) friendStr = InputRef?.input.value;   
+          if(!friendStr) return;    
           addFriend({
-            variables: {name, friend},
-            refetchQueries: [{
-              query: friendGql,
-              variables: {name}
-            }],
+            variables: {userId, friend: friendStr},
           })
           .then((res) => {
             if(res.data?.addFriend.status){
-              const {status} = res.data.addFriend;
+              const {status, friend} = res.data.addFriend;
+              console.log("加粗", res)
               if(status !== 'success'){
-                alert(`添加失败${status}`);
+                setUserInfo({...userInfo, friends:[...(friends || []), friend.userId]})
+                alert(`添加成功${status}`);
               }else{
-                alert(`添加朋友成功`);
+                alert(`添加朋友失败`);
               }
             }else{
               alert('发生错误');
