@@ -1,9 +1,9 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {Button, Input} from 'antd';
 import gql from 'graphql-tag';
-import {userInfoContext} from '../../App'
 import {IUser} from '../../utils/chat';
+import {IChatInfo, addFriendState} from '.';
 
 const addFriendGql = gql`
   mutation AddFriend($userId: String!, $friend: String!){
@@ -17,9 +17,14 @@ const addFriendGql = gql`
   }
 `;
 
-const AddFriend:React.FC = (props) => {
-  const {userInfo, setUserInfo} = useContext(userInfoContext);
-  const {userId, friends} = userInfo;
+interface IAddFriendProps {
+  userId: string;
+  chatInfo: IChatInfo;
+  setChatInfo: (chatInfo: IChatInfo) => void;
+};
+
+const AddFriend:React.FC<IAddFriendProps> = (props) => {
+  const {userId, chatInfo, setChatInfo} = props;
   const [addFriend] = useMutation<{addFriend:{status: string, friend: IUser}}, {userId: string;friend: string;}>(
     addFriendGql);
   let friendStr: string = '';
@@ -44,7 +49,7 @@ const AddFriend:React.FC = (props) => {
               const {status, friend} = res.data.addFriend;
               console.log("加粗", res)
               if(status !== 'success'){
-                setUserInfo({...userInfo, friends:[...(friends || []), friend.userId]})
+                setChatInfo(addFriendState(chatInfo, friend));
                 alert(`添加成功${status}`);
               }else{
                 alert(`添加朋友失败`);

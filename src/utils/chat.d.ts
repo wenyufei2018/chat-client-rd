@@ -1,7 +1,6 @@
 export interface IUser{
   userId: string;
   avatar?: string;
-  friends?: string[];
 }
 
 export type MessageType = "text" | "image" | "video" | "audio";

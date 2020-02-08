@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import {IChatInfo} from '.';
 import gql from 'graphql-tag';
 import {IMessage} from '../../utils/chat';
+import {addMessageState} from '.';
 
 interface IAddMessageResult{
   addMessage: {
@@ -54,6 +55,7 @@ const Chat: React.FC<IChatProps> = (props) => {
   let content: string;
   let InputRef: Input | null;
 
+  // TODO: 需要倒序
   return (
     <div>
       <h1>{`Chat with ${friendName} avater ${friendInfo?.avatar}`}</h1>
@@ -88,10 +90,7 @@ const Chat: React.FC<IChatProps> = (props) => {
             if(res.data?.addMessage){
               const {status, message} = res.data?.addMessage;
               if(status === "sucess"){
-                setChatInfo({...chatInfo, [friendName]:{
-                  messages: [...chatInfo[friendName].messages, message],
-                  friendInfo: chatInfo[friendName].friendInfo
-                }})
+                setChatInfo(addMessageState(chatInfo, message, friendName));
               }
             }
           })
