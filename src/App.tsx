@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 import User from './pages/User';
 import Tourist from './pages/Tourist';
 import {IUser} from './utils/chat'
+import Test from './test-styled-components/6_other_attrs';
 
 const createClient = () => {
   
@@ -81,6 +82,7 @@ export default () => {
             }} />
             <Route path="/404" component={NotFound} />
             <Route path="/tourist" component={Tourist} />
+            <Route path="/test" component={Test} />
             <Route component={NotFound} />
           </Switch>
         </Router>
