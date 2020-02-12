@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import defaultTheme, {ITheme} from '../theme';
-import { scale } from '../common/animations';
+import { scale } from '../other/common/animations';
 
 interface IDiv {
   scale?: string;

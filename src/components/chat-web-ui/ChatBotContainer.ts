@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import defaultTheme, {ITheme} from '../theme';
+import defaultTheme, {ITheme} from './theme';
 
 interface IChatBotContainerProps {
   theme?: ITheme;
@@ -18,6 +18,7 @@ interface IChatBotContainerProps {
 
 const ChatBotContainer = styled.div<IChatBotContainerProps>`
   background: ${({ theme }) => theme.background};
+  margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.15);
   font-family: ${({ theme }) => theme.fontFamily};

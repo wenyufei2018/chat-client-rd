@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import defaultTheme, {ITheme} from '../theme';
 
-interface IHeader {
+interface IHeaderContainer {
   theme: ITheme;
 };
 
-const Header = styled.div<IHeader>`
+const HeaderContainer = styled.div<IHeaderContainer>`
   align-items: center;
   background: ${({ theme }) => theme.headerBgColor};
   color: ${({ theme }) => theme.headerFontColor};
@@ -16,8 +16,8 @@ const Header = styled.div<IHeader>`
   padding: 0 10px;
 `;
 
-Header.defaultProps = {
+HeaderContainer.defaultProps = {
   theme: defaultTheme
 };
 
-export default Header;
+export default HeaderContainer;

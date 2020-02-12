@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { scale } from '../common/animations';
+import { scale } from '../other/common/animations';
 
 interface IImg {
   user: boolean;

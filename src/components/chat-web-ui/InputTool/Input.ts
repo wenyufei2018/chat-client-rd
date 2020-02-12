@@ -1,5 +1,5 @@
-import { invalidInput } from '../common/animations';
 import styled, { css } from 'styled-components';
+import { invalidInput } from '../other/common/animations';
 
 interface IInput {
   invalid?: boolean;

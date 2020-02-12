@@ -12,8 +12,8 @@ import NotFound from './pages/NotFound';
 import User from './pages/User';
 import Tourist from './pages/Tourist';
 import {IUser} from './utils/chat'
-import Chat from './test/chat2.jsx';
-import Test from './test/test_Header';
+import TestChat from './test/chat2.jsx';
+import Chat from './pages/Chat';
 
 const createClient = () => {
   
@@ -83,7 +83,7 @@ export default () => {
             }} />
             <Route path="/404" component={NotFound} />
             <Route path="/tourist" component={Tourist} />
-            <Route path="/test" component={Test} />
+            <Route path="/test" component={TestChat} />
             <Route path="/chat" component={Chat} />
             <Route component={NotFound} />
           </Switch>

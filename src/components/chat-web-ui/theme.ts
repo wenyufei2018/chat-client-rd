@@ -1,4 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
+
 export interface ITheme {
   containerBackground: string;
   background: string;
