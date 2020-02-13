@@ -1,0 +1,76 @@
+body {
+    background-color:#006eff;
+    min-width: 640px;
+}
+.container {
+    display: grid;
+    margin-top: 80px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 640px;
+    height: 520px;
+    grid-template-columns: 9% 35% 56%;
+}
+.menu {
+    background-color:#232422;
+}
+.menu ul{
+    list-style: none;
+    width: 70%;/*三列图片排列*/
+    padding:0; 
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.menu li{
+    margin-bottom:20px;
+}
+
+.menu img {
+    width: 100%;
+}
+
+ /* TODO:  */
+::-webkit-scrollbar
+{
+    width:0px;
+}
+
+.list {
+    background-color:#b2b897;
+    overflow: auto;
+}
+
+.list input {
+    width: 100%;
+    border-width: 0;
+    height: 23px;
+}
+
+.list ul{
+    list-style: none;
+    padding:0; 
+    margin: 0;
+    height: 100%;
+}
+
+.list ul li{
+    height: 10%;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+}
+
+.list ul li div {
+    background-color: aqua;
+    height: 100%;/*三列图片排列*/
+}
+
+.list img {
+    height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.chat {
+    background-color:#ffffff;
+}

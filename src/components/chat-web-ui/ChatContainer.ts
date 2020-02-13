@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import defaultTheme, {ITheme} from './theme';
 
-interface IChatBotContainerProps {
+interface IChatContainerProps {
   theme?: ITheme;
   floating?: boolean;
   floatingStyle: {
@@ -16,10 +16,9 @@ interface IChatBotContainerProps {
   opened?: boolean;
 };
 
-const ChatBotContainer = styled.div<IChatBotContainerProps>`
+const ChatContainer = styled.div<IChatContainerProps>`
   background: ${({ theme }) => theme.background};
   margin: 0 auto;
-  border-radius: 10px;
   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.15);
   font-family: ${({ theme }) => theme.fontFamily};
   overflow: hidden;
@@ -48,8 +47,10 @@ const ChatBotContainer = styled.div<IChatBotContainerProps>`
   }
 `;
 
-ChatBotContainer.defaultProps = {
-  theme: defaultTheme
+ChatContainer.defaultProps = {
+  theme: defaultTheme,
+  width: '350px',
+  height: '520px',
 };
 
-export default ChatBotContainer;
+export default ChatContainer;

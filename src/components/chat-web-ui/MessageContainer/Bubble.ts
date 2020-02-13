@@ -14,19 +14,6 @@ interface IDiv {
 const Bubble = styled.div<IDiv>`
   animation: ${scale} 0.3s ease forwards;
   background: ${props => (props.user ? props.theme.userBubbleColor : props.theme.botBubbleColor)};
-  border-radius: ${props => {
-    const { isFirst, isLast, user } = props;
-
-    if (!isFirst && !isLast) {
-      return user ? '18px 0 0 18px' : '0 18px 18px 0px';
-    }
-
-    if (!isFirst && isLast) {
-      return user ? '18px 0 18px 18px' : '0 18px 18px 18px';
-    }
-
-    return props.user ? '18px 18px 0 18px' : '18px 18px 18px 0';
-  }};
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   color: ${props => (props.user ? props.theme.userFontColor : props.theme.botFontColor)};
   display: inline-block;

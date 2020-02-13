@@ -17,12 +17,12 @@ const defaultTheme: ITheme = {
   containerBackground: '#9E9E9E',
   background: '#f5f8fb',
   fontFamily: 'monospace',
-  headerBgColor: '#6e48aa',
+  headerBgColor: '#48aa4b',
   headerFontColor: '#fff',
   headerFontSize: '16px',
   botBubbleColor: '#6E48AA',
   botFontColor: '#fff',
-  userBubbleColor: '#fff',
+  userBubbleColor: '#afa310',
   userFontColor: '#4a4a4a',
 };
 

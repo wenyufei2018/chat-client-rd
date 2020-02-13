@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChatBotContainer from './ChatBotContainer';
+import ChatContainer from './ChatContainer';
 import Header from './HeaderBar';
 import MessageContainer from './MessageContainer';
 import InputTool from './InputTool';
@@ -9,20 +9,22 @@ import {IMessage, IUser} from './types';
 interface IChatProps {
   messages: IMessage[];
   user: IUser;
+  chatContainerHeight?: string;
+  chatContainerWidth?: string;
 }
 
 export const Chat: React.FC<IChatProps> = (props) => {
-  const {messages, user} = props;
+  const {messages, user, chatContainerHeight, chatContainerWidth} = props;
 
   const headContend = '测试名字';
   return (
-    <ChatBotContainer
+    <ChatContainer
       className="rsc-container"
       floatingStyle={{}}
       floating={false}
       opened={true}
-      width={'350px'}
-      height={'520px'}
+      height={chatContainerHeight}
+      width={chatContainerWidth}
     >
       <Header
         headContend = {headContend}
@@ -32,7 +34,7 @@ export const Chat: React.FC<IChatProps> = (props) => {
         messages={messages}
       />
       <InputTool/>
-    </ChatBotContainer>
+    </ChatContainer>
   );
 };
 
