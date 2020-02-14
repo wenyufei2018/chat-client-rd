@@ -6,10 +6,11 @@ import SubmitButton from './SubmitButton';
 import SubmitIcon from '../other/icons/SubmitIcon';
 
 interface IInputTool {
-
+  isSubmit: boolean;
 }
 
-const InputTool: React.FC<IInputTool> = () => {
+const InputTool: React.FC<IInputTool> = (props) => {
+  const {isSubmit} = props;
   return (
     <Footer className="rsc-footer">
       <Input
@@ -19,7 +20,7 @@ const InputTool: React.FC<IInputTool> = () => {
       />
       <SubmitButton
         className="rsc-submit-button"
-        disabled={true}
+        disabled={isSubmit}
         onClick={()=>{
           console.log('发送');
         }}

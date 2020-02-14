@@ -15,6 +15,7 @@ import {IUser} from './utils/chat'
 // import TestChat from './test/chat2';
 import Chat from './pages/Chat';
 import Test from './test/test';
+import IMApp from './pages/IMApp';
 
 const createClient = () => {
   
@@ -86,6 +87,7 @@ export default () => {
             <Route path="/tourist" component={Tourist} />
             <Route path="/test" component={Test} />
             <Route path="/chat" component={Chat} />
+            <Route path="/IMApp" component={IMApp} />
             <Route component={NotFound} />
           </Switch>
         </Router>

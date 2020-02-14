@@ -3,7 +3,7 @@ import HeaderContainer from './HeaderContainer';
 import HeaderTitle from './HeaderTitle';
 
 interface IHeader {
-  headContend: string;
+  headContend?: string;
 }
 
 const Header: React.FC<IHeader> = (props) =>{
@@ -12,7 +12,7 @@ const Header: React.FC<IHeader> = (props) =>{
 
   return (
     <HeaderContainer className="rsc-header">
-      <HeaderTitle className="rsc-header-title">{headContend}</HeaderTitle>
+      <HeaderTitle className="rsc-header-title">{headContend || '测试文字'}</HeaderTitle>
     </HeaderContainer>
   )
 }

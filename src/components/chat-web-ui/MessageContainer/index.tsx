@@ -5,7 +5,7 @@ import Bubble from './Bubble';
 import Content from './Content';
 import Image from './Image';
 import ImageContainer from './ImageContainer';
-import TextStepContainer from './TextStepContainer';
+import TextContainer from './TextContainer';
 import {defaultImags} from '../constance';
 
 interface IMessageContainer {
@@ -28,7 +28,7 @@ const MessageContainer: React.FC<IMessageContainer> = (props) => {
         const user: boolean = messageUserId===userId;
         console.log('测试', content);
         return (
-          <TextStepContainer
+          <TextContainer
             className={`rsc-ts ${user ? 'rsc-ts-user' : 'rsc-ts-bot'}`}
             user={user}
             key={index}
@@ -50,7 +50,7 @@ const MessageContainer: React.FC<IMessageContainer> = (props) => {
             >
               {content}
             </Bubble>
-          </TextStepContainer>
+          </TextContainer>
         )
       })}
     </Content>

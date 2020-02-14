@@ -9,31 +9,24 @@ import {IMessage, IUser} from './types';
 interface IChatProps {
   messages: IMessage[];
   user: IUser;
-  chatContainerHeight?: string;
-  chatContainerWidth?: string;
+  headContend?: string;
 }
 
 export const Chat: React.FC<IChatProps> = (props) => {
-  const {messages, user, chatContainerHeight, chatContainerWidth} = props;
+  const {messages, user} = props;
 
-  const headContend = '测试名字';
   return (
     <ChatContainer
       className="rsc-container"
-      floatingStyle={{}}
-      floating={false}
-      opened={true}
-      height={chatContainerHeight}
-      width={chatContainerWidth}
     >
-      <Header
-        headContend = {headContend}
-      />
+      <Header/>
       <MessageContainer
         userId={user.userId}
         messages={messages}
       />
-      <InputTool/>
+      <InputTool
+        isSubmit={false}
+      />
     </ChatContainer>
   );
 };
