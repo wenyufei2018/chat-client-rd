@@ -1,4 +1,8 @@
 import React from 'react';
+import { 
+  useHistory,
+  useRouteMatch
+} from 'react-router-dom';
 
 import MenuContainer from './MenuContainer';
 import List from './List';
@@ -16,16 +20,32 @@ const defaultImags:{
 }
 
 export default () => {
+  const {replace} = useHistory();
+  const {path} = useRouteMatch();
   return (
     <MenuContainer>
-      <UserImgContainer>
+      <UserImgContainer
+        onClick={()=>{
+          alert('头像信息');
+        }}
+      >
         <UserImg src={defaultImags.botAvatar} />
       </UserImgContainer>
       <List>
-        <ListItem>
-          <Image src={defaultImags.botAvatar} />
+        <ListItem
+          onClick={()=>{
+            replace(`${path}/ChatItem`);
+          }}
+        >
+          <Image
+            src={defaultImags.botAvatar}
+          />
         </ListItem>
-        <ListItem>
+        <ListItem
+          onClick={()=>{
+            replace(`${path}/OtherItem`);
+          }}
+        >
           <Image src={defaultImags.userAvatar} />
         </ListItem>
       </List>

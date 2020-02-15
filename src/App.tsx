@@ -1,5 +1,13 @@
 import React, {createContext, useState} from 'react';
-import { HashRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
+import { 
+  HashRouter as Router, 
+  Route, 
+  Switch, 
+  Redirect, 
+  Link, 
+  useRouteMatch, 
+  useParams 
+} from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, split } from 'apollo-link';
@@ -70,29 +78,43 @@ export default () => {
   });
 
   return (
-    <userInfoContext.Provider value={{userInfo, setUserInfo}}>
-      <ApolloProvider client={client}>
-        <Router>
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="/tourist" push />} />
-            <Route path="/user" render={() => {
-              const {userId} = userInfo;
-              if(!!userId) return <User userInfo={userInfo}/>
-              else return  <div>
-                <h1>{`用户没有登录`}</h1>
-                <Link to ="/tourist/signIn" >登录</Link>  
-              </div>
-            }} />
-            <Route path="/404" component={NotFound} />
-            <Route path="/tourist" component={Tourist} />
-            <Route path="/test" component={Test} />
-            <Route path="/chat" component={Chat} />
-            <Route path="/IMApp" component={IMApp} />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      </ApolloProvider> 
-    </userInfoContext.Provider>
+    <Router>
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/tourist" push />} />
+        <Route path="/tourist">
+          <Tourist/>
+        </Route>
+        <Route path="/IMApp">
+          <IMApp/>
+        </Route>
+      </Switch>
+    </Router>
   )
+
+  // return (
+  //   <userInfoContext.Provider value={{userInfo, setUserInfo}}>
+  //     <ApolloProvider client={client}>
+  //       <Router>
+  //         <Switch>
+  //           <Route exact path="/" render={() => <Redirect to="/tourist" push />} />
+  //           <Route path="/user" render={() => {
+  //             const {userId} = userInfo;
+  //             if(!!userId) return <User userInfo={userInfo}/>
+  //             else return  <div>
+  //               <h1>{`用户没有登录`}</h1>
+  //               <Link to ="/tourist/signIn" >登录</Link>  
+  //             </div>
+  //           }} />
+  //           <Route path="/404" component={NotFound} />
+  //           <Route path="/tourist" component={Tourist} />
+  //           <Route path="/test" component={Test} />
+  //           <Route path="/chat" component={Chat} />
+  //           <Route path="/IMApp" component={IMApp} />
+  //           <Route component={NotFound} />
+  //         </Switch>
+  //       </Router>
+  //     </ApolloProvider> 
+  //   </userInfoContext.Provider>
+  // )
 
 };

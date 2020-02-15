@@ -4,8 +4,8 @@ interface IListContainer {
 };
 
 const ListContainer = styled.div<IListContainer>`
-  background-color:#b2b897;
   overflow-y: scroll;
+  overflow-x: hidden;
   flex-grow: 1;
 `;
 

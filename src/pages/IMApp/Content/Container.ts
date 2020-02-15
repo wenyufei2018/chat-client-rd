@@ -4,10 +4,7 @@ interface IContainer {
 };
 
 const Container = styled.div<IContainer>`
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  background-color:#e2dddd;
 `;
 
 Container.defaultProps = {
